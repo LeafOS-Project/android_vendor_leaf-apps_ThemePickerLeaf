@@ -58,8 +58,17 @@ android_app {
     system_ext_specific: true,
     platform_apis: true,
 
+    required: ["privapp_whitelist_com.android.wallpaper.xml"],
     overrides: [
         "ThemePicker",
         "WallpaperPicker2",
     ],
+}
+
+prebuilt_etc_xml {
+    name: "privapp_whitelist_com.android.wallpaper.xml",
+    src: "privapp_whitelist_com.android.wallpaper.xml",
+    system_ext_specific: true,
+    filename_from_src: true,
+    sub_dir: "permissions",
 }
