@@ -63,6 +63,7 @@ android_app {
     required: ["privapp_whitelist_com.android.wallpaper.xml"],
     overrides: [
         "ThemePicker",
+        "WallpaperPicker",
         "WallpaperPicker2",
     ],
 }
