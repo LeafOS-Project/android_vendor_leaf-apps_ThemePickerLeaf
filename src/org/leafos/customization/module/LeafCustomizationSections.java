@@ -21,6 +21,14 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.LifecycleOwner;
 
+import org.leafos.customization.model.font.FontManager;
+import org.leafos.customization.model.font.FontSectionController;
+import org.leafos.customization.model.iconpack.IconPackManager;
+import org.leafos.customization.model.iconpack.IconPackSectionController;
+import org.leafos.customization.model.iconshape.IconShapeManager;
+import org.leafos.customization.model.iconshape.IconShapeSectionController;
+
+import com.android.customization.model.theme.OverlayManagerCompat;
 import com.android.wallpaper.model.CustomizationSectionController;
 import com.android.wallpaper.model.CustomizationSectionController.CustomizationSectionNavigationController;
 import com.android.wallpaper.model.PermissionRequester;
@@ -61,6 +69,19 @@ public class LeafCustomizationSections implements CustomizationSections {
                         sectionNavigationController, savedInstanceState, wallpaperInfoFactory,
                         displayUtils, wallpaperQuickSwitchViewModel,
                         wallpaperInteractor);
+
+        // Icon pack selection section.
+        sections.add(new IconPackSectionController(
+                IconPackManager.getInstance(activity, new OverlayManagerCompat(activity)), sectionNavigationController));
+
+        // Font selection section.
+        sections.add(new FontSectionController(
+                FontManager.getInstance(activity, new OverlayManagerCompat(activity)), sectionNavigationController));
+
+        // Icon shape selection section.
+        sections.add(new IconShapeSectionController(
+                IconShapeManager.getInstance(activity, new OverlayManagerCompat(activity)), sectionNavigationController));
+
         return sections;
     }
 
@@ -79,6 +100,19 @@ public class LeafCustomizationSections implements CustomizationSections {
                         activity, lifecycleOwner, wallpaperColorsViewModel, permissionRequester,
                         wallpaperPreviewNavigator, sectionNavigationController, savedInstanceState,
                         displayUtils);
+
+        // Icon pack selection section.
+        sections.add(new IconPackSectionController(
+                IconPackManager.getInstance(activity, new OverlayManagerCompat(activity)), sectionNavigationController));
+
+        // Font selection section.
+        sections.add(new FontSectionController(
+                FontManager.getInstance(activity, new OverlayManagerCompat(activity)), sectionNavigationController));
+
+        // Icon shape selection section.
+        sections.add(new IconShapeSectionController(
+                IconShapeManager.getInstance(activity, new OverlayManagerCompat(activity)), sectionNavigationController));
+
         return sections;
     }
 }
