@@ -17,6 +17,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.android.wallpaper">
     <uses-permission android:name="android.permission.BIND_WALLPAPER" />
+    <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES" />
+    <uses-permission android:name="android.permission.INTERACT_ACROSS_USERS_FULL" />
 
     <queries>
         <!-- Intent filter with action used to discover launcher -->

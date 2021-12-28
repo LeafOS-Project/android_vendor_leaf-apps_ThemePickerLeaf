@@ -30,6 +30,18 @@ filegroup {
 }
 
 genrule {
+    name: "ThemePickerLeaf_res",
+    tools: ["soong_zip"],
+    srcs: [
+        "res/**/*",
+    ],
+    out: ["ThemePickerLeaf_res.zip"],
+    cmd: "INPUTS=($(in)) && "
+        + "RES_DIR=$$(dirname $$(dirname $${INPUTS[0]})) && "
+        + "$(location soong_zip) -o $(out) -C $$RES_DIR -D $$RES_DIR"
+}
+
+genrule {
     name: "ThemePickerLeaf_res_overrides",
     tools: ["soong_zip"],
     srcs: [
@@ -68,6 +80,7 @@ android_app {
         ":WallpaperPicker2_res",
         ":ThemePicker_res",
         ":ThemePicker_res_overrides",
+        ":ThemePickerLeaf_res",
         ":ThemePickerLeaf_res_overrides",
     ],
 
