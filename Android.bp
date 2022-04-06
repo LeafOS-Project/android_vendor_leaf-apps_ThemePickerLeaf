@@ -38,6 +38,7 @@ android_app {
     ],
     overrides: [
         "ThemePicker",
+        "WallpaperCropper",
         "WallpaperPicker",
         "WallpaperPicker2",
     ],
