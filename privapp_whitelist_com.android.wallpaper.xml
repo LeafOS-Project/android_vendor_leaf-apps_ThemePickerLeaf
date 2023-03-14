@@ -21,5 +21,6 @@
         <permission name="android.permission.MODIFY_DAY_NIGHT_MODE"/>
         <permission name="android.permission.CHANGE_OVERLAY_PACKAGES"/>
         <permission name="android.permission.WRITE_SECURE_SETTINGS" />
+        <permission name="android.permission.READ_WALLPAPER_INTERNAL"/>
     </privapp-permissions>
 </permissions>
