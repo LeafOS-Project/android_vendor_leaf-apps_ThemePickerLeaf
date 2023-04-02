@@ -20,6 +20,7 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.ViewModelProvider;
 
 import org.leafos.customization.model.font.FontManager;
 import org.leafos.customization.model.font.FontSectionController;
@@ -29,6 +30,9 @@ import org.leafos.customization.model.iconshape.IconShapeManager;
 import org.leafos.customization.model.iconshape.IconShapeSectionController;
 
 import com.android.customization.model.theme.OverlayManagerCompat;
+import com.android.customization.picker.quickaffordance.domain.interactor.KeyguardQuickAffordancePickerInteractor;
+import com.android.customization.picker.quickaffordance.ui.section.KeyguardQuickAffordanceSectionController;
+import com.android.customization.picker.quickaffordance.ui.viewmodel.KeyguardQuickAffordancePickerViewModel;
 import com.android.wallpaper.model.CustomizationSectionController;
 import com.android.wallpaper.model.CustomizationSectionController.CustomizationSectionNavigationController;
 import com.android.wallpaper.model.PermissionRequester;
@@ -44,9 +48,18 @@ import java.util.List;
 
 public class LeafCustomizationSections implements CustomizationSections {
     private CustomizationSections mDefaultCustomizationSections;
+    private final KeyguardQuickAffordancePickerInteractor mKeyguardQuickAffordancePickerInteractor;
+    private final KeyguardQuickAffordancePickerViewModel.Factory
+            mKeyguardQuickAffordancePickerViewModelFactory;
 
-    public LeafCustomizationSections(CustomizationSections defaultCustomizationSections) {
+    public LeafCustomizationSections(CustomizationSections defaultCustomizationSections,
+            KeyguardQuickAffordancePickerInteractor keyguardQuickAffordancePickerInteractor,
+            KeyguardQuickAffordancePickerViewModel.Factory
+                    keyguardQuickAffordancePickerViewModelFactory) {
         mDefaultCustomizationSections = defaultCustomizationSections;
+        mKeyguardQuickAffordancePickerInteractor = keyguardQuickAffordancePickerInteractor;
+        mKeyguardQuickAffordancePickerViewModelFactory =
+                keyguardQuickAffordancePickerViewModelFactory;
     }
 
     @Override
@@ -112,6 +125,17 @@ public class LeafCustomizationSections implements CustomizationSections {
         // Icon shape selection section.
         sections.add(new IconShapeSectionController(
                 IconShapeManager.getInstance(activity, new OverlayManagerCompat(activity)), sectionNavigationController));
+
+        // Lock screen quick affordances section.
+        sections.add(
+                new KeyguardQuickAffordanceSectionController(
+                        sectionNavigationController,
+                        mKeyguardQuickAffordancePickerInteractor,
+                        new ViewModelProvider(
+                                activity,
+                                mKeyguardQuickAffordancePickerViewModelFactory)
+                                .get(KeyguardQuickAffordancePickerViewModel.class),
+                        lifecycleOwner));
 
         return sections;
     }

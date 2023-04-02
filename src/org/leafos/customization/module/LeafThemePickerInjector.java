@@ -27,7 +27,9 @@ public class LeafThemePickerInjector extends ThemePickerInjector {
     public CustomizationSections getCustomizationSections(ComponentActivity activity) {
         if (mCustomizationSections == null) {
             mCustomizationSections = new LeafCustomizationSections(
-                    super.getCustomizationSections(activity));
+                    super.getCustomizationSections(activity),
+                    getKeyguardQuickAffordancePickerInteractor(activity),
+                    getKeyguardQuickAffordancePickerViewModelFactory(activity));
         }
         return mCustomizationSections;
     }
