@@ -90,7 +90,7 @@ android_app {
     kotlincflags: ["-Xjvm-default=enable"],
     use_embedded_native_libs: true,
 
-    certificate: "platform",
+    certificate: "",
     privileged: true,
     system_ext_specific: true,
     platform_apis: true,
