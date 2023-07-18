@@ -14,13 +14,21 @@
  * limitations under the License.
  */
 
+filegroup {
+    name: "ThemePickerLeaf_Manifest",
+    srcs: [
+        "AndroidManifest.xml",
+    ],
+}
+
 android_app {
     name: "ThemePickerLeaf",
     defaults: ["ThemePicker_defaults"],
 
     platform_apis: true,
-    manifest: ":ThemePicker_Manifest",
+    manifest: ":ThemePickerLeaf_Manifest",
     additional_manifests: [
+        ":ThemePicker_Manifest",
         ":WallpaperPicker2_Manifest",
     ],
 
