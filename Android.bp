@@ -32,6 +32,8 @@ android_app {
         ":WallpaperPicker2_Manifest",
     ],
 
+    resource_dirs: ["res_override"],
+
     required: [
         "privapp_whitelist_com.android.wallpaper.xml",
         "default_permissions_com.android.wallpaper.xml",
