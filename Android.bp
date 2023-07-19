@@ -15,6 +15,14 @@
  */
 
 filegroup {
+    name: "ThemePickerLeaf_srcs",
+    srcs: [
+        "src/**/*.java",
+        "src/**/*.kt",
+    ],
+}
+
+filegroup {
     name: "ThemePickerLeaf_Manifest",
     srcs: [
         "AndroidManifest.xml",
@@ -50,6 +58,7 @@ android_app {
     srcs: [
         ":WallpaperPicker2_srcs",
         ":ThemePicker_srcs",
+        ":ThemePickerLeaf_srcs",
     ],
     static_libs: [
         "ThemePickerLeaf-core",
