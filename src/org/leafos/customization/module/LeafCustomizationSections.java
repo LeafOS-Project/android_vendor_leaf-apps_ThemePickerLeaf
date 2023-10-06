@@ -15,6 +15,7 @@
  */
 package org.leafos.customization.module;
 
+import android.app.WallpaperManager;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -41,7 +42,7 @@ import com.android.wallpaper.model.WallpaperPreviewNavigator;
 import com.android.wallpaper.module.CurrentWallpaperInfoFactory;
 import com.android.wallpaper.module.CustomizationSections;
 import com.android.wallpaper.picker.customization.domain.interactor.WallpaperInteractor;
-import com.android.wallpaper.picker.customization.ui.viewmodel.WallpaperQuickSwitchViewModel;
+import com.android.wallpaper.picker.customization.ui.viewmodel.CustomizationPickerViewModel;
 import com.android.wallpaper.util.DisplayUtils;
 
 import java.util.List;
@@ -74,14 +75,16 @@ public class LeafCustomizationSections implements CustomizationSections {
             @Nullable Bundle savedInstanceState,
             CurrentWallpaperInfoFactory wallpaperInfoFactory,
             DisplayUtils displayUtils,
-            WallpaperQuickSwitchViewModel wallpaperQuickSwitchViewModel,
-            WallpaperInteractor wallpaperInteractor) {
+            CustomizationPickerViewModel customizationPickerViewModel,
+            WallpaperInteractor wallpaperInteractor,
+            WallpaperManager wallpaperManager,
+            boolean isTwoPaneAndSmallWidth) {
         List<CustomizationSectionController<?>> sections = mDefaultCustomizationSections
                 .getRevampedUISectionControllersForScreen(screen, activity, lifecycleOwner,
                         wallpaperColorsViewModel, permissionRequester, wallpaperPreviewNavigator,
                         sectionNavigationController, savedInstanceState, wallpaperInfoFactory,
-                        displayUtils, wallpaperQuickSwitchViewModel,
-                        wallpaperInteractor);
+                        displayUtils, customizationPickerViewModel,
+                        wallpaperInteractor, wallpaperManager, isTwoPaneAndSmallWidth);
 
         // Icon pack selection section.
         sections.add(new IconPackSectionController(
