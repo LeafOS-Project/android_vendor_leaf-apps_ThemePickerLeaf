@@ -29,9 +29,4 @@
 
     <uses-permission android:name="com.android.launcher3.permission.READ_SETTINGS" />
     <uses-permission android:name="com.android.launcher3.permission.WRITE_SETTINGS" />
-
-    <application
-        tools:replace="android:name"
-        android:name="org.leafos.customization.picker.LeafCustomizationPickerApplication">
-    </application>
 </manifest>

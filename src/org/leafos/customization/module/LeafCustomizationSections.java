@@ -31,9 +31,6 @@ import org.leafos.customization.model.iconshape.IconShapeManager;
 import org.leafos.customization.model.iconshape.IconShapeSectionController;
 
 import com.android.customization.model.theme.OverlayManagerCompat;
-import com.android.customization.picker.quickaffordance.domain.interactor.KeyguardQuickAffordancePickerInteractor;
-import com.android.customization.picker.quickaffordance.ui.section.KeyguardQuickAffordanceSectionController;
-import com.android.customization.picker.quickaffordance.ui.viewmodel.KeyguardQuickAffordancePickerViewModel;
 import com.android.wallpaper.model.CustomizationSectionController;
 import com.android.wallpaper.model.CustomizationSectionController.CustomizationSectionNavigationController;
 import com.android.wallpaper.model.PermissionRequester;
@@ -49,22 +46,13 @@ import java.util.List;
 
 public class LeafCustomizationSections implements CustomizationSections {
     private CustomizationSections mDefaultCustomizationSections;
-    private final KeyguardQuickAffordancePickerInteractor mKeyguardQuickAffordancePickerInteractor;
-    private final KeyguardQuickAffordancePickerViewModel.Factory
-            mKeyguardQuickAffordancePickerViewModelFactory;
 
-    public LeafCustomizationSections(CustomizationSections defaultCustomizationSections,
-            KeyguardQuickAffordancePickerInteractor keyguardQuickAffordancePickerInteractor,
-            KeyguardQuickAffordancePickerViewModel.Factory
-                    keyguardQuickAffordancePickerViewModelFactory) {
+    public LeafCustomizationSections(CustomizationSections defaultCustomizationSections) {
         mDefaultCustomizationSections = defaultCustomizationSections;
-        mKeyguardQuickAffordancePickerInteractor = keyguardQuickAffordancePickerInteractor;
-        mKeyguardQuickAffordancePickerViewModelFactory =
-                keyguardQuickAffordancePickerViewModelFactory;
     }
 
     @Override
-    public List<CustomizationSectionController<?>> getRevampedUISectionControllersForScreen(
+    public List<CustomizationSectionController<?>> getSectionControllersForScreen(
             Screen screen,
             FragmentActivity activity,
             LifecycleOwner lifecycleOwner,
@@ -80,7 +68,7 @@ public class LeafCustomizationSections implements CustomizationSections {
             WallpaperManager wallpaperManager,
             boolean isTwoPaneAndSmallWidth) {
         List<CustomizationSectionController<?>> sections = mDefaultCustomizationSections
-                .getRevampedUISectionControllersForScreen(screen, activity, lifecycleOwner,
+                .getSectionControllersForScreen(screen, activity, lifecycleOwner,
                         wallpaperColorsViewModel, permissionRequester, wallpaperPreviewNavigator,
                         sectionNavigationController, savedInstanceState, wallpaperInfoFactory,
                         displayUtils, customizationPickerViewModel,
@@ -101,45 +89,4 @@ public class LeafCustomizationSections implements CustomizationSections {
         return sections;
     }
 
-    @Override
-    public List<CustomizationSectionController<?>> getAllSectionControllers(
-            FragmentActivity activity,
-            LifecycleOwner lifecycleOwner,
-            WallpaperColorsViewModel wallpaperColorsViewModel,
-            PermissionRequester permissionRequester,
-            WallpaperPreviewNavigator wallpaperPreviewNavigator,
-            CustomizationSectionNavigationController sectionNavigationController,
-            @Nullable Bundle savedInstanceState,
-            DisplayUtils displayUtils) {
-        List<CustomizationSectionController<?>> sections = mDefaultCustomizationSections
-                .getAllSectionControllers(
-                        activity, lifecycleOwner, wallpaperColorsViewModel, permissionRequester,
-                        wallpaperPreviewNavigator, sectionNavigationController, savedInstanceState,
-                        displayUtils);
-
-        // Icon pack selection section.
-        sections.add(new IconPackSectionController(
-                IconPackManager.getInstance(activity, new OverlayManagerCompat(activity)), sectionNavigationController));
-
-        // Font selection section.
-        sections.add(new FontSectionController(
-                FontManager.getInstance(activity, new OverlayManagerCompat(activity)), sectionNavigationController));
-
-        // Icon shape selection section.
-        sections.add(new IconShapeSectionController(
-                IconShapeManager.getInstance(activity, new OverlayManagerCompat(activity)), sectionNavigationController));
-
-        // Lock screen quick affordances section.
-        sections.add(
-                new KeyguardQuickAffordanceSectionController(
-                        sectionNavigationController,
-                        mKeyguardQuickAffordancePickerInteractor,
-                        new ViewModelProvider(
-                                activity,
-                                mKeyguardQuickAffordancePickerViewModelFactory)
-                                .get(KeyguardQuickAffordancePickerViewModel.class),
-                        lifecycleOwner));
-
-        return sections;
-    }
 }

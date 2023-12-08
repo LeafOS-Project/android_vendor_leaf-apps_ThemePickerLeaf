@@ -13,18 +13,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.leafos.customization.picker;
+package com.android.customization.picker;
 
-import com.android.customization.picker.CustomizationPickerApplication;
+import android.app.Application;
+
+import com.android.customization.module.CustomizationInjector;
 import com.android.wallpaper.module.InjectorProvider;
 
-import org.leafos.customization.module.LeafThemePickerInjector;
+import dagger.hilt.android.HiltAndroidApp;
 
-public class LeafCustomizationPickerApplication extends CustomizationPickerApplication {
+import javax.inject.Inject;
+
+@HiltAndroidApp(Application.class)
+public class CustomizationPickerApplication extends Hilt_CustomizationPickerApplication {
+
+    @Inject CustomizationInjector mInjector;
+
     @Override
     public void onCreate() {
         super.onCreate();
 
-        InjectorProvider.setInjector(new LeafThemePickerInjector());
+        InjectorProvider.setInjector(mInjector);
     }
 }

@@ -18,18 +18,31 @@ package org.leafos.customization.module;
 import androidx.activity.ComponentActivity;
 
 import com.android.customization.module.ThemePickerInjector;
+import com.android.wallpaper.dispatchers.BackgroundDispatcher;
+import com.android.wallpaper.dispatchers.MainDispatcher;
 import com.android.wallpaper.module.CustomizationSections;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+import kotlinx.coroutines.CoroutineDispatcher;
+import kotlinx.coroutines.CoroutineScope;
+
+@Singleton
 public class LeafThemePickerInjector extends ThemePickerInjector {
     private CustomizationSections mCustomizationSections;
+
+    @Inject
+    public LeafThemePickerInjector(@MainDispatcher CoroutineScope mainScope,
+            @MainDispatcher CoroutineDispatcher mainDispatcher,
+            @BackgroundDispatcher CoroutineDispatcher bgDispatcher) {
+        super(mainScope, mainDispatcher, bgDispatcher);
+    }
 
     @Override
     public CustomizationSections getCustomizationSections(ComponentActivity activity) {
         if (mCustomizationSections == null) {
             mCustomizationSections = new LeafCustomizationSections(
-                    super.getCustomizationSections(activity),
-                    getKeyguardQuickAffordancePickerInteractor(activity),
-                    getKeyguardQuickAffordancePickerViewModelFactory(activity));
+                    super.getCustomizationSections(activity));
         }
         return mCustomizationSections;
     }
