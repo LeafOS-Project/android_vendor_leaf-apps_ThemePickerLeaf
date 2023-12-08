@@ -64,7 +64,7 @@ public class LeafCustomizationSections implements CustomizationSections {
     }
 
     @Override
-    public List<CustomizationSectionController<?>> getRevampedUISectionControllersForScreen(
+    public List<CustomizationSectionController<?>> getSectionControllersForScreen(
             Screen screen,
             FragmentActivity activity,
             LifecycleOwner lifecycleOwner,
@@ -80,7 +80,7 @@ public class LeafCustomizationSections implements CustomizationSections {
             WallpaperManager wallpaperManager,
             boolean isTwoPaneAndSmallWidth) {
         List<CustomizationSectionController<?>> sections = mDefaultCustomizationSections
-                .getRevampedUISectionControllersForScreen(screen, activity, lifecycleOwner,
+                .getSectionControllersForScreen(screen, activity, lifecycleOwner,
                         wallpaperColorsViewModel, permissionRequester, wallpaperPreviewNavigator,
                         sectionNavigationController, savedInstanceState, wallpaperInfoFactory,
                         displayUtils, customizationPickerViewModel,
@@ -101,45 +101,4 @@ public class LeafCustomizationSections implements CustomizationSections {
         return sections;
     }
 
-    @Override
-    public List<CustomizationSectionController<?>> getAllSectionControllers(
-            FragmentActivity activity,
-            LifecycleOwner lifecycleOwner,
-            WallpaperColorsViewModel wallpaperColorsViewModel,
-            PermissionRequester permissionRequester,
-            WallpaperPreviewNavigator wallpaperPreviewNavigator,
-            CustomizationSectionNavigationController sectionNavigationController,
-            @Nullable Bundle savedInstanceState,
-            DisplayUtils displayUtils) {
-        List<CustomizationSectionController<?>> sections = mDefaultCustomizationSections
-                .getAllSectionControllers(
-                        activity, lifecycleOwner, wallpaperColorsViewModel, permissionRequester,
-                        wallpaperPreviewNavigator, sectionNavigationController, savedInstanceState,
-                        displayUtils);
-
-        // Icon pack selection section.
-        sections.add(new IconPackSectionController(
-                IconPackManager.getInstance(activity, new OverlayManagerCompat(activity)), sectionNavigationController));
-
-        // Font selection section.
-        sections.add(new FontSectionController(
-                FontManager.getInstance(activity, new OverlayManagerCompat(activity)), sectionNavigationController));
-
-        // Icon shape selection section.
-        sections.add(new IconShapeSectionController(
-                IconShapeManager.getInstance(activity, new OverlayManagerCompat(activity)), sectionNavigationController));
-
-        // Lock screen quick affordances section.
-        sections.add(
-                new KeyguardQuickAffordanceSectionController(
-                        sectionNavigationController,
-                        mKeyguardQuickAffordancePickerInteractor,
-                        new ViewModelProvider(
-                                activity,
-                                mKeyguardQuickAffordancePickerViewModelFactory)
-                                .get(KeyguardQuickAffordancePickerViewModel.class),
-                        lifecycleOwner));
-
-        return sections;
-    }
 }

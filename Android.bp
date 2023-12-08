@@ -23,6 +23,14 @@ filegroup {
 }
 
 filegroup {
+    name: "ThemePickerLeaf_src_overrides",
+    srcs: [
+        "src_override/**/*.java",
+        "src_override/**/*.kt",
+    ],
+}
+
+filegroup {
     name: "ThemePickerLeaf_Manifest",
     srcs: [
         "AndroidManifest.xml",
@@ -71,6 +79,7 @@ android_app {
         ":WallpaperPicker2_srcs",
         ":ThemePicker_srcs",
         ":ThemePickerLeaf_srcs",
+        ":ThemePickerLeaf_src_overrides",
     ],
     static_libs: [
         "ThemePickerLeaf-core",

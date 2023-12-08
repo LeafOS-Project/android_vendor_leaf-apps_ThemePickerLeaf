@@ -15,16 +15,20 @@
  */
 package org.leafos.customization.picker;
 
+import com.android.customization.module.CustomizationInjector;
 import com.android.customization.picker.CustomizationPickerApplication;
 import com.android.wallpaper.module.InjectorProvider;
 
-import org.leafos.customization.module.LeafThemePickerInjector;
+import javax.inject.Inject;
 
 public class LeafCustomizationPickerApplication extends CustomizationPickerApplication {
+
+    @Inject CustomizationInjector mInjector;
+
     @Override
     public void onCreate() {
         super.onCreate();
 
-        InjectorProvider.setInjector(new LeafThemePickerInjector());
+        InjectorProvider.setInjector(mInjector);
     }
 }
